@@ -1,6 +1,5 @@
 """Clean anomaly records, build one-row-per-satellite attributes, join satcat."""
 import re
-import numpy as np
 import pandas as pd
 from src.config import ORBIT_CLASSES
 
@@ -29,11 +28,9 @@ def satellite_table(df: pd.DataFrame) -> pd.DataFrame:
     """Per-satellite attributes taken from the anomaly file itself (available for ALL satellites)."""
     g = df.groupby("BIRD")
     sat = pd.DataFrame({
-        "orbit": g.ORBIT.agg(lambda s: s.mode().iat[0]),
-        "alt_km": g.ALT.median(),
+        "orbit": g.ORBIT.agg(lambda s: s.mode().iat[0] if not s.mode().empty else "UNKNOWN"),
         "first_anomaly": g.ADATE.min(),
     })
-    sat["log_alt"] = np.log1p(sat.alt_km)
     for c in ORBIT_CLASSES:
         sat[f"orbit_{c}"] = (sat.orbit == c).astype(int)
     return sat

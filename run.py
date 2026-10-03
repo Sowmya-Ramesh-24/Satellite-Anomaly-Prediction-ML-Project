@@ -9,4 +9,4 @@ for name in ORDER:
     print(f"running {name}.ipynb ...", flush=True)
     subprocess.run([sys.executable, "-m", "jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace",
                     "--ExecutePreprocessor.timeout=600", str(NB / f"{name}.ipynb")], check=True)
-print("done -> see results/ and notebooks/results_comparison.ipynb")
+print("done -> Linear Regression results are in notebooks/lr.ipynb and results/")
