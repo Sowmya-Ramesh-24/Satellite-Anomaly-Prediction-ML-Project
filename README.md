@@ -15,7 +15,7 @@ The project compares:
 
 ## Team 
 
-| SOWMYA RAMESH | SRINIKESH DURGAVAJJUL |
+| SOWMYA RAMESH | SRINIKESH DURGAVAJJULA |
 | -------- | -------- | 
 | PES2UG24CS512| PES2UG24CS520 | 
 
