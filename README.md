@@ -72,7 +72,7 @@ git clone https://github.com/Sowmya-Ramesh-24/Satellite-Anomaly-Prediction-ML-Pr
 cd Satellite-Anomaly-Prediction-ML-Project
 ```
 
-### 2. Create and activate a virtual environment (recommended)
+### 2. Create and activate a virtual environment 
 
 **Windows — Command Prompt**
 ```bat
@@ -115,7 +115,7 @@ Open `notebooks/exploration.ipynb` and run all cells from top to bottom. This no
 data/processed/tte.csv
 ```
 
-The raw input files are already included in `data/raw/`. If you open the notebook while your working directory is `notebooks/`, its path setup also accounts for that location.
+The raw input files are already included in `data/raw/`. 
 
 ### Step 2 — Evaluate the models
 
@@ -127,11 +127,6 @@ After `data/processed/tte.csv` has been created, run each model notebook from to
 
 Each notebook performs shuffled 10-fold cross-validation and saves out-of-fold predictions, evaluation metrics, and plots under `results/`.
 
-### Step 3 — Review the results
-
-Open `notebooks/results.ipynb` to inspect and compare the model outputs. The repository also includes the saved metrics, prediction CSV files, and evaluation plots in `results/`.
-
-**Important:** The workflow is notebook-based; there is currently no standalone `run.py` entry point in the repository. Run the notebooks in the order above rather than using `python run.py`.
 
 ## Data preparation and feature engineering
 
@@ -140,15 +135,6 @@ Three datasets are combined:
 - `anom5j.xls`: satellite identifiers, anomaly dates, orbit labels, and altitude.
 - `satcat.csv`: satellite catalogue and orbital information.
 - `sunspot.csv`: daily sunspot activity aligned to anomaly dates.
-
-The preprocessing workflow:
-
-1. Normalizes satellite names and orbit labels, parses dates, removes invalid dates, and deduplicates same-satellite anomalies recorded on the same day.
-2. Builds satellite-level attributes and one-hot encodes orbit categories.
-3. Matches satellite catalogue records using normalized names and keeps unambiguous matches.
-4. Computes 27-day and 81-day rolling sunspot averages and their difference as a trend feature.
-5. Sorts anomaly dates per satellite and calculates TTE as the day difference between consecutive anomalies.
-6. Excludes the final anomaly for each satellite because the following event is unknown, removes non-positive gaps and gaps of 365 days or more, and excludes satellites with 20 or fewer valid TTE observations.
 
 The **13 active features** are:
 
@@ -183,19 +169,3 @@ All three models use the same prepared TTE observations, the same 13 active feat
 
 The folds are shuffled at the observation level rather than grouped by satellite. Therefore, observations from the same satellite can occur in both training and test folds; the evaluation should not be interpreted as a test of generalization to entirely unseen satellites.
 
-## Team SRNS — Contributions
-
-### Sowmya Ramesh — PES2UG24CS512
-
-- Data cleaning and preprocessing across the anomaly, satellite catalogue, and sunspot datasets.
-- Construction of the TTE observation table and feature engineering.
-- Exploratory data analysis and Linear Regression baseline workflow.
-- Integration of the project pipeline, result organization, and report/documentation.
-
-### Srinikesh Durgavajjula — PES2UG24CS520
-
-- Support Vector Regression (SVR) model implementation and evaluation.
-- Modified Naive Bayes survival-oriented model implementation and evaluation.
-- Model comparison and interpretation of the evaluation results.
-
-Both team members contributed to the overall project review and presentation.
